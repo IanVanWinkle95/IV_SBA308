@@ -46,13 +46,15 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmission) {
             learnerData[learner_id] = [];
         }
 
-        learnerData[learner_id].push(submission);
+        learnerData[learner_id].push(getUserTotalPct(LearnerSubmission, learner_id, AssignmentGroup));
 
     }
     console.log(learnerData)
     return result;
 
 }
+
+getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)
 
 function getPossiblePoints(AssignmentDetails) {
     let result = 0;
