@@ -68,13 +68,17 @@ function getPossiblePoints(AssignmentDetails) {
 // getPossiblePoints(AssignmentGroup)
 
 function getDueAt(AssignmentDetails, AssignmentNum) {
-
-    for (let i = 0; i < AssignmentDetails.assignments.length; i++) {
+    let codeName = "none"
+    let i = 0
+    while (i < AssignmentDetails.assignments.length) {
         const ID = AssignmentDetails.assignments[i].id
         if (ID == assignNum) {
-            return AssignmentDetails.assignments[i].due_at
+            codeName = AssignmentDetails.assignments[i].due_at
+            break
         }
+        i++
     }
+    throw new error("no due date")
 }
 
 function getUserScore(LearnerSubmissions, LearnerId, AssignmentDetails) {
@@ -85,7 +89,14 @@ function getUserScore(LearnerSubmissions, LearnerId, AssignmentDetails) {
         const scores = submissions.score
         const submission_learner_id = submissions.learner_id
         const assignNum = submissions.assignment_id
-        const dueDate = getDueAt(AssignmentDetails, assignNum)
+        let dueDate
+        
+        try{
+            dueDate = getDueAt(AssignmentDetails, assignNum)
+        }
+        catch(error) {
+            break
+        }
         // console.log(submissions.submission.score)
         if (submission_learner_id == LearnerId) {
             result += submissions.submission.score
