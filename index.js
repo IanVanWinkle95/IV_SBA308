@@ -101,9 +101,7 @@ function getUserScore(LearnerSubmissions, LearnerId, AssignmentDetails) {
         if (submission_learner_id == LearnerId) {
             result += submissions.submission.score
         }
-        if (AssignmentDetails == submissions.submission.submitted_at) {
-            result += 
-            }
+            
 
         // console.log(result)
 
