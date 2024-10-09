@@ -52,7 +52,6 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmission) {
     console.log(learnerData)
     return result;
 
-
 }
 
 function getPossiblePoints(AssignmentDetails) {
@@ -60,29 +59,45 @@ function getPossiblePoints(AssignmentDetails) {
     const assign = AssignmentDetails.assignments
 
     for (let i = 0; i < assign.length; i++) {
-        console.log(assign[i].points_possible)
+        // console.log(assign[i].points_possible)
         result += assign[i].points_possible
-        console.log(result)
+        // console.log(result)
     }
     return result;
 }
-getPossiblePoints(AssignmentGroup)
+// getPossiblePoints(AssignmentGroup)
 
-function getUserScore(LearnerSubmissions) {
+function getUserScore(LearnerSubmissions, LearnerId) {
     let result = 0;
 
     for (let i = 0; i < LearnerSubmissions.length; i++) {
         const submissions = LearnerSubmissions[i]
         const scores = submissions.score
-
-            console.log(submissions.submission.score)
-            result += submissions.submission.score
-            console.log(result)
+        const submission_learner_id = submissions.learner_id
+        
+            // console.log(submissions.submission.score)
+            if (submission_learner_id == LearnerId) {
+                result += submissions.submission.score
+            }
+            
+            // console.log(result)
 
     }
     return result;
 }
-getUserScore(LearnerSubmissions)
+// getUserScore(LearnerSubmissions, 132)
+
+function getUserTotalPct(LearnerSubmissions, UserID, AssignmentDetails) {
+
+    let UserTotalScore = getUserScore(LearnerSubmissions, UserID)
+    const TotalPossibleScore = getPossiblePoints(AssignmentDetails)
+    console.log(TotalPossibleScore)
+    console.log(UserTotalScore)
+    const SubAverageScore = UserTotalScore / TotalPossibleScore;
+    console.log(SubAverageScore)
+}
+// getUserTotalPct(LearnerSubmissions, 125, AssignmentGroup)
+
 
 
 // const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
