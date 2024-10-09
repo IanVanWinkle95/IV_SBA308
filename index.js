@@ -67,20 +67,34 @@ function getPossiblePoints(AssignmentDetails) {
 }
 // getPossiblePoints(AssignmentGroup)
 
-function getUserScore(LearnerSubmissions, LearnerId) {
+function getDueAt(AssignmentDetails, AssignmentNum) {
+
+    for (let i = 0; i < AssignmentDetails.assignments.length; i++) {
+        const ID = AssignmentDetails.assignments[i].id
+        if (ID == assignNum) {
+            return AssignmentDetails.assignments[i].due_at
+        }
+    }
+}
+
+function getUserScore(LearnerSubmissions, LearnerId, AssignmentDetails) {
     let result = 0;
 
     for (let i = 0; i < LearnerSubmissions.length; i++) {
         const submissions = LearnerSubmissions[i]
         const scores = submissions.score
         const submission_learner_id = submissions.learner_id
-        
-            // console.log(submissions.submission.score)
-            if (submission_learner_id == LearnerId) {
-                result += submissions.submission.score
+        const assignNum = submissions.assignment_id
+        const dueDate = getDueAt(AssignmentDetails, assignNum)
+        // console.log(submissions.submission.score)
+        if (submission_learner_id == LearnerId) {
+            result += submissions.submission.score
+        }
+        if (AssignmentDetails == submissions.submission.submitted_at) {
+            result += 
             }
-            
-            // console.log(result)
+
+        // console.log(result)
 
     }
     return result;
@@ -96,6 +110,10 @@ function getUserTotalPct(LearnerSubmissions, UserID, AssignmentDetails) {
     const SubAverageScore = UserTotalScore / TotalPossibleScore;
     console.log(SubAverageScore)
 }
+
+
+
+
 // getUserTotalPct(LearnerSubmissions, 125, AssignmentGroup)
 
 
